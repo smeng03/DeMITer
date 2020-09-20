@@ -1,0 +1,83 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<head>
+  <title> Kore </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+  .jumbotron {background: none; position: absolute; right: 0; position: fixed; left: 20%; color: white;}
+  .sidebar-nav {margin-top: 20%; margin-left: 2%; padding: 0px; padding-left: 0px; list-style: none;}
+  img {margin: auto;}
+  body {
+    font-family: 'Trebuchet MS';
+  }
+input[type=submit]{
+  background: white;
+  color: black;
+  border:none;
+  height: 50px;
+  width: 100px;
+  font: bold 15px 'Trebuchet MS', sans-serif;
+  text-shadow:none;
+
+}
+input, select{
+  margin-bottom: 2em;
+  height: 2.5em;
+  padding: 0.5em;
+  color: black;
+}
+
+th{
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2em;
+  height: 2.5em;
+}
+
+a{
+  display: block;
+  color: white;
+  padding: 16px 16px;
+}
+
+</style>
+</head>
+  <div class='jumbotron'>
+  {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+  
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+  
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+  
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+</div>
+{% endblock %}

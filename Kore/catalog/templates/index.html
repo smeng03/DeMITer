@@ -1,0 +1,63 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<head>
+    <title> Kore </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .jumbotron {background: none; position: absolute; right: 0; position: fixed; left: 20%; color: white;}
+    .sidebar-nav {margin-top: 20%; margin-left: 2%; padding: 0px; padding-left: 0px; list-style: none;}
+    img {margin: auto;}
+    body {
+      font-family: 'Trebuchet MS';
+    }
+input[type=submit]{
+    background: white;
+    color: black;
+    border:none;
+    height: 50px;
+    width: 100px;
+    font: bold 15px 'Trebuchet MS', sans-serif;
+    text-shadow:none;
+
+}
+input, select{
+    margin-bottom: 2em;
+    height: 2.5em;
+    padding: 0.5em;
+    color: black;
+}
+
+th{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2em;
+    height: 2.5em;
+}
+
+  </style>
+  <script>
+    $(document).ready(function() {
+    $('.has-popover').popover({'trigger':'hover'});
+    });
+  </script>
+  </head>
+  <div class="jumbotron">
+    <h1><b>Kore Home</b></h1>
+    <br/>
+    <p style="font-weight: 500;">Welcome to Kore, a web app developed by <span style="font-weight: bolder;">Team DeMITer</span> (Sagnik Anupam, Bianca Hanly, Sabrina Meng, Yaroslav Luchko). This app matches students with other students who are working on the same/similar pset problems.</p>
+    <p style="font-weight: 500;"> The total number of students using Kore at the moment is <span style="font-weight: bolder;">{{ num_students }}</span> students.</p>
+    <br/>
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+  </div>
+{% endblock %}
